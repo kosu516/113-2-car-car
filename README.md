@@ -7,6 +7,8 @@ For our final project, we built an **interactive wind-instrument practice device
 
 The device provides **three modes**: **Free Play**, **Fingering Practice**, and **Song Performance**. Fingering Practice guides users step-by-step with LED cues on the glove. Song Performance works like a rhythm game—the LEDs follow the song’s tempo, and users play along to perform the piece.
 
+Finally, our final project received an Honorable Mention in the end-of-semester project competition.
+
 ## Demo
 
 ## System Design
