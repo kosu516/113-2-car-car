@@ -12,7 +12,7 @@ Finally, our final project received an Honorable Mention in the end-of-semester 
 ## Demo
 
 <p>
-  <img width="500" alt="F7782C5C-EA3E-4A22-B1E5-B9035BDB8CAC" src="https://github.com/user-attachments/assets/7a8c1ad0-2082-4d63-b88b-3600a2818d4c" />
+  <img width="450" alt="F7782C5C-EA3E-4A22-B1E5-B9035BDB8CAC" src="https://github.com/user-attachments/assets/7a8c1ad0-2082-4d63-b88b-3600a2818d4c" />
 </p>
 
 | <img height="250" alt="379E1ACB-9CB6-4744-92F1-38E9F78EB8D4" src="https://github.com/user-attachments/assets/efc730c6-cfdd-48f2-b142-d15c59af471e" /> | <img height="250" alt="57A21163-200C-455A-B473-3BF2DD667869" src="https://github.com/user-attachments/assets/ee0b0c8d-f69c-4a72-a1b1-f800ce04e1bd" /> | <img height="250" alt="9B77F884-CBFC-437A-8214-F84F34F5EF7E" src="https://github.com/user-attachments/assets/a8ab16c2-3993-4557-94df-0fe3400ce177" /> |
@@ -21,4 +21,9 @@ Finally, our final project received an Honorable Mention in the end-of-semester 
 
 
 ## System Design
+
+<p>
+  <img width="650" src="https://github.com/user-attachments/assets/9923eed2-8827-49ad-a022-fa4c0b67e6f8" />
+</p>
+
 
