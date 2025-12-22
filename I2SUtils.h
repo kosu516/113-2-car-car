@@ -36,14 +36,6 @@ bool initI2S();
  * 選擇播放正常或靜音，並做音量縮放後送入 I2S。
  *
  * @param mute   若 true，則播放靜音段
- * @param volume 5~100 百分比音量
+ * @param volume 0~100 百分比音量
  */
-void playAudio();
-
-/**
- * @brief 播放一小段song.wav
- * @param mute 若 true，則靜音
- * @param volume 5~100 百分比音量
-
-*/
-bool playAudioChunk();
+bool playNextChunk(bool mute, uint8_t volume);

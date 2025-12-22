@@ -23,8 +23,6 @@ static Adafruit_NeoPixel strip(NUM_LEDS, LED_PIN, NEO_GRB + NEO_KHZ800);
  */
 void initLighting();
 
-void prepareLighting();
-
 /**
  * @brief 根據當前時間更新燈效
  *

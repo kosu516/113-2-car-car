@@ -56,9 +56,10 @@ bool checkFingering(uint32_t now, bool doPrint);
  */
 uint16_t getMaskFromNote(const char* note);
 
-
-// 批次初始化：將每個 RawEvent.note 對應的 mask 填入
-void initRawEvents();
+/**
+ * @brief 初始化音名對應的指法
+*/
+void initFingeringMasks();
 
 // 以下變數暨映射表由 FingeringsUtils.cpp 定義
 
@@ -68,6 +69,6 @@ extern const int buttonPins[9];
 // 譜表與指法映射
 extern RawEvent rawScore[];
 extern const size_t scoreLen;
-extern Fingering fingerings[];
+extern const Fingering fingerings[];
 extern const size_t fingeringCount;
 // ---------- end FingeringsUtils.h ----------

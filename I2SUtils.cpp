@@ -9,10 +9,7 @@ static const int I2S_BCK_PIN = 26;             // BCLK
 static const int I2S_WS_PIN = 25;              // LRCK/WS
 static const int I2S_DATA_PIN = 13;            // DIN
 static const i2s_port_t I2S_PORT = I2S_NUM_0;  // 固定使用 I2S_NUM_0
-
-extern volatile bool fingerOK;
-extern volatile bool stop2;
-#define volumePercent 40
+extern bool playbackDone;
 
 // 音訊緩衝大小
 #define BUF_SAMPLES 256
@@ -56,65 +53,40 @@ bool initI2S() {
     .data_out_num = I2S_DATA_PIN,
     .data_in_num = I2S_PIN_NO_CHANGE
   };
-
   if (i2s_driver_install(I2S_PORT, &cfg, 0, NULL) != ESP_OK) {
     Serial.println("[ERROR] I2S driver install failed");
     return false;
   }
-  i2s_set_pin(I2S_NUM_0, &pins);
+  i2s_set_pin(I2S_PORT, &pins);
   return true;
 }
 
-void playAudio() {
-  static int32_t zeroBuf[BUF_SAMPLES] = { 0 };
+// returns false when EOF reached
+bool playNextChunk(bool mute, uint8_t volume) {
+
+  volume = constrain(volume, 5, 100);
+  static int32_t zeroBuf[BUF_SAMPLES] = {0};
   int32_t buf[BUF_SAMPLES];
 
-  // 每次迴圈都重新讀取最新的 mute/volume
-  while (songFile.available() && playAudioChunk()) {
-    if(!stop2) {
-      // RTOS 下讓出 CPU；若在 loop() 中可改用 yield()
-      taskYIELD();
-    } else {
-      break;
+  size_t bytesRead = songFile.read((uint8_t*)buf,
+                                   BUF_SAMPLES * sizeof(int32_t));
+  if (bytesRead == 0) return false;  // no more data
+
+  int frames = bytesRead / sizeof(int32_t);
+  int32_t* out = mute ? zeroBuf : buf;
+
+  if (!mute && volume != 100) {
+    for (int i = 0; i < frames; i++) {
+      int64_t v = int64_t(buf[i]) * volume;
+      out[i] = int32_t(v / 100);
     }
   }
-  songFile.close();
-}
 
-bool playAudioChunk() {
-    static int32_t zeroBuf[BUF_SAMPLES] = { 0 };  // buffer for mute
-    int32_t buf[BUF_SAMPLES];                     // read buffer
-
-    // 如果檔案沒資料了，直接結束
-    if (!songFile.available()) {
-        return false;
-    }
-
-    // 讀取一個 chunk 的資料
-    size_t bytesRead = songFile.read(reinterpret_cast<uint8_t*>(buf),
-                                     BUF_SAMPLES * sizeof(int32_t));
-    if (bytesRead == 0) {
-        return false;  // 到檔案尾
-    }
-
-    int frames = bytesRead / sizeof(int32_t);
-    int32_t* outBuf = fingerOK ? buf : zeroBuf;
-
-    // 音量縮放：若非 mute 且 volume != 100
-    if (fingerOK && volumePercent != 100) {
-        for (int i = 0; i < frames; ++i) {
-            int64_t v = int64_t(buf[i]) * volumePercent;
-            outBuf[i] = int32_t(v / 100);
-        }
-    }
-
-    // 寫到 I2S
-    size_t bytesWritten;
-    i2s_write(I2S_NUM_0,
-              outBuf,
-              frames * sizeof(int32_t),
-              &bytesWritten,
-              portMAX_DELAY);
-
-    return true;  // 還有可能繼續播放
+  size_t bytesWritten;
+  i2s_write(I2S_NUM_0,
+            out,
+            frames * sizeof(int32_t),
+            &bytesWritten,
+            portMAX_DELAY);
+  return true;
 }
