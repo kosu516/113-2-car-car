@@ -11,35 +11,3 @@ The device provides **three modes**: **Free Play**, **Fingering Practice**, and 
 
 ## System Design
 
-
-
-## Dataset
-
-Download the datasets from [\_dataset_](https://drive.google.com/drive/folders/1bXjlnU0Q90I6w5YoS63aVochboCR5jVW?usp=drive_link) and unzip them.
-
-## Pose Retrieval & Estimation
-
-Follow the instruction of [ShuHong Chen et al.](https://github.com/ShuhongChen/bizarre-pose-estimator)
-and merge the scripts in ```pose_retr_esti``` to _scripts.
-
-## Transformation
-
-The scipts in this folder contains all of the tranformation scripts we use.
-
-* ```transform_img.ipynb``` is to apply swirl effect on character image.
-* ```transform_sk.ipynb``` is to apply translation/rotation/scaling/resize-half/swirl effect on skeletons.
-* For transformation required for deterministic method, follow the sequence provide in ```deterministic``` folder.
-
-## Training
-
-To train the model(s) in the paper, run this command:
-
-```train
-python train.py <root_dir> <save_path> <out_root> --use_stn true # for STN-integrated method
-python train.py <root_dir> <save_path> <out_root> --use_stn false # for deterministic method
-```
- * <root_dir>: path to dataset root
- * <save_path>: path to save checkpoints
- * <out_root>: path to save inference results
-
->📋  The inference will be done automatically right after training.
