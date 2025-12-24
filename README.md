@@ -11,6 +11,8 @@ Finally, our final project received an Honorable Mention in the end-of-semester 
 
 ## Demo
 
+[**Video Demo**](https://youtu.be/SX3kKxktHw0)
+
 <p>
   <img width="450" alt="F7782C5C-EA3E-4A22-B1E5-B9035BDB8CAC" src="https://github.com/user-attachments/assets/7a8c1ad0-2082-4d63-b88b-3600a2818d4c" />
 </p>
